@@ -35,7 +35,7 @@ export class DisplayDialogComponent implements OnInit {
 
   ngOnInit() {
     // subscribe
-   this.subscription = timer(0, 1000)
+   this.subscription = timer(0, 3000)
                          .pipe(
                            // switchMap cancels the last request, if no response have been received since last tick
                            switchMap(() => this.load())
