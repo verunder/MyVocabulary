@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 server/run.sh
-ui/run.sh
+ui-web/run.sh
 
