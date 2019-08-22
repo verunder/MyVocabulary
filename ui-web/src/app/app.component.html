@@ -12,9 +12,11 @@
   </mat-card-header>
   <hr>
   <mat-card-content>
-    <button mat-raised-button (click)="openDialog()">Start</button>
+    Update every<input #box (keyup.enter)="updateInterval(box.value)"
+           (blur)="updateInterval(box.value)" value="{{interval}}" class="box right">seconds
+    <button mat-raised-button (click)="openDialog()" class="box">Start</button>
     <hr>
-    <strong>Result: {{dialogResult}}</strong>
+    <strong>{{dialogResult}}</strong>
   </mat-card-content>
 </mat-card>
 

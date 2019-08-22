@@ -19,42 +19,29 @@ export class DisplayDialogComponent implements OnInit {
 
   private configUrl: string = 'http://localhost:3000';
 
-  private fetchData$: Observable<any> = this.http.get(this.configUrl);
-//   private refreshInterval: Observable<any> = timer(0, 1000)
-//   .pipe(
-//     // This kills the request if the user closes the component
-//     takeUntil(this.killTrigger),
-//     // switchMap cancels the last request, if no response have been received since last tick
-//     switchMap(() => this.fetchData$),
-//     // catchError handles http throws
-//     catchError(error => of('Error'))
-//   );
   private subscription: Subscription; // = this.refreshInterval.subscribe(result => this.data = result);
+  private count = 0;
 
   constructor(public thisDialogRef: MatDialogRef<DisplayDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Object, private http: HttpClient) {}
 
   ngOnInit() {
     // subscribe
-   this.subscription = timer(0, 3000)
+    this.subscription = timer(0, this.data.interval)
                          .pipe(
-                           // switchMap cancels the last request, if no response have been received since last tick
-                           switchMap(() => this.load())
-                         ).subscribe(result => this.data = result);
-   console.log("init");
+                            switchMap(() => this.load()) //// switchMap cancels the last request, if no response have been received since last tick
+                         )
+                         .subscribe(result => this.data = result);
   }
   ngOnDestroy() {
       this.subscription.unsubscribe();
   }
 
   onCloseConfirm() {
-    //this.subscription.unsubscribe();
-    this.thisDialogRef.close('Confirm');
+    this.thisDialogRef.close(`You've watched ${this.count} words`);
   }
-  onCloseCancel() {
-    //this.subscription.unsubscribe();
-    this.thisDialogRef.close('Cancel');
-  }
+
   load() {
+    this.count ++;
     return this.http.get(this.configUrl);
   }
 }

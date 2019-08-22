@@ -13,17 +13,22 @@ export class AppComponent {
 
   title = 'my-vocab';
   dialogResult = "";
+  private interval = 5;
   openDialog = function(){
-  let dialogRef = this.dialog.open(DisplayDialogComponent, {
-        width: '80%',
-        data: {
-        WORD: 'WORD',
-        DEFINITION: 'Definition'
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog closed: ${result}`);
-        this.dialogResult = result;
-      });
+
+      let dialogRef = this.dialog.open(DisplayDialogComponent, {
+            width: '80%',
+            data: {
+                WORD: 'WORD',
+                DEFINITION: 'Definition',
+                interval: this.interval * 1000
+            }
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            this.dialogResult = result;
+          });
   };
+  updateInterval = function(value) {
+    this.interval = parseFloat(value) ;
+  }
 }
