@@ -11,9 +11,9 @@ import { DisplayDialogComponent } from './display-dialog/display-dialog.componen
 export class AppComponent {
   constructor(public dialog: MatDialog) {}
 
-  title = 'my-vocab';
+  title = 'Vocabulary extension';
   dialogResult = "";
-  private interval = 5;
+  private interval = 3;
   openDialog = function(){
 
       let dialogRef = this.dialog.open(DisplayDialogComponent, {
@@ -29,6 +29,6 @@ export class AppComponent {
           });
   };
   updateInterval = function(value) {
-    this.interval = parseFloat(value) ;
+    this.interval = parseFloat(value) || 3 ;
   }
 }
